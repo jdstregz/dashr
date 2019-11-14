@@ -25,6 +25,9 @@ const useStyles = makeStyles(theme => ({
       display: 'none',
     },
   },
+  sidebarText: {
+    color: '#c4c4c4',
+  },
   toolbar: theme.mixins.toolbar,
 }));
 

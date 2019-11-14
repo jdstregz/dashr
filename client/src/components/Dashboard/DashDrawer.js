@@ -8,6 +8,7 @@ import {
   ListItemIcon,
   ListItemText,
   Tooltip,
+  Collapse,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
@@ -23,6 +24,39 @@ const DashDrawer = () => {
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down('sm'));
   const classes = useStyles();
+
+  const renderSublist = (route, parentMenuIndex) => {
+    return (
+      <Collapse in={selectedRouteIndex === parentMenuIndex} timeout={'auto'} unmountOnExit>
+        <List component={'div'} disablePadding>
+          {Object.values(route.subroutes).map((subroute, index) => (
+            <Tooltip
+              title={subroute.text}
+              key={subroute.text}
+              classes={{ tooltip: classes.tooltipText, popper: classes.noShow }}
+              placement={'right'}
+            >
+              <ListItem
+                selected={selectedRouteIndex === parentMenuIndex && selectedSubrouteIndex === index}
+                key={subroute.text}
+                onClick={() => {
+                  setSelectedSubrouteIndex(index);
+                  setSelectedRouteIndex(parentMenuIndex);
+                }}
+                button
+                component={Link}
+                to={subroute.link}
+                className={classes.sublistItem}
+              >
+                <ListItemIcon className={classes.sidebarIcon}>{subroute.icon}</ListItemIcon>
+                <ListItemText className={classes.sidebarText} primary={subroute.text} />
+              </ListItem>
+            </Tooltip>
+          ))}
+        </List>
+      </Collapse>
+    );
+  };
 
   return (
     <Drawer
@@ -48,11 +82,12 @@ const DashDrawer = () => {
                 selected={selectedRouteIndex === index}
                 component={Link}
                 to={route.link}
-                onClick={() => console.log('I clicked this')}
+                onClick={() => setSelectedRouteIndex(index)}
               >
                 <ListItemText className={classes.sidebarText} primary={route.text} />
               </ListItem>
             </Tooltip>
+            {route.subroutes ? renderSublist(route, index) : null}
           </div>
         ))}
       </List>

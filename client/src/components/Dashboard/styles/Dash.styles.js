@@ -12,6 +12,7 @@ const useStyles = makeStyles(theme => ({
   },
   logo: {
     height: 50,
+    marginRight: theme.spacing(1),
   },
   content: {
     flexGrow: 1,
