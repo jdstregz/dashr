@@ -70,6 +70,9 @@ JWT Token stored in production secure session cookie.
 I included an example of an "admin check" middleware that checks if the user is an admin before allowing certain
 endpoints.
 
+#### MongoDB & Mongoose
+Model examples with mongoose. Connection setup to Atlas cloud coming soon. 
+
 #### Redux
 
 Redux store is set up with Redux Thunk and Redux Logger. Multiple asynchronous dispatch examples and combined reducer examples.
@@ -82,16 +85,16 @@ HOC wrapped dashboard to push out users without proper session.
 
 Folder with example tests + test coverage scripts.
 
-### Frontend Tests
+#### Frontend Tests
 
 Gotta work on this one.
 
-### Stripe Payment System
+#### Stripe Payment System
 
 Gotta also work on this one, but the idea is to include routes to easily integrate stripe payments.
 Id like to set up both single purchase and recurring subscriptions.
 
-### Building + Deploying (Heroku Example)
+#### Building + Deploying (Heroku Example)
 
 Build scripts included. I need to add a Heroku hosting example. Will add docker example later too.
 
