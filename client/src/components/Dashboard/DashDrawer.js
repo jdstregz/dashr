@@ -9,20 +9,21 @@ import {
   ListItemText,
   Tooltip,
   Collapse,
+  IconButton,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-
+import { Cancel } from '@material-ui/icons';
 import useStyles from './styles/DashDrawer.styles';
 import routes from '../Routes/routes';
 
 const routeArray = Object.values(routes());
 
-const DashDrawer = () => {
-  const [drawerOpen, setDrawerOpen] = React.useState(false);
+const DashDrawer = props => {
+  const { drawerOpen, setDrawerOpen } = props;
   const [selectedRouteIndex, setSelectedRouteIndex] = React.useState(-1);
   const [selectedSubrouteIndex, setSelectedSubrouteIndex] = React.useState(-1);
   const theme = useTheme();
-  const mobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const mobile = useMediaQuery(theme.breakpoints.down('xs'));
   const classes = useStyles();
 
   const renderSublist = (route, parentMenuIndex) => {
@@ -68,7 +69,15 @@ const DashDrawer = () => {
         paper: classes.drawerPaper,
       }}
     >
-      <div className={classes.toolbar} />
+      <div className={classes.toolbar}>
+        <IconButton
+          color={'inherit'}
+          className={classes.cancelIcon}
+          onClick={() => setDrawerOpen(false)}
+        >
+          <Cancel />
+        </IconButton>
+      </div>
       <List className={classes.list}>
         {routeArray.map((route, index) => (
           <div key={route.text}>
@@ -82,8 +91,12 @@ const DashDrawer = () => {
                 selected={selectedRouteIndex === index}
                 component={Link}
                 to={route.link}
-                onClick={() => setSelectedRouteIndex(index)}
+                onClick={() => {
+                  setSelectedRouteIndex(index);
+                  setSelectedSubrouteIndex(-1);
+                }}
               >
+                <ListItemIcon className={classes.sidebarIcon}>{route.icon}</ListItemIcon>
                 <ListItemText className={classes.sidebarText} primary={route.text} />
               </ListItem>
             </Tooltip>
