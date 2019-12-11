@@ -3,7 +3,7 @@ import React from 'react';
 const PlaceholderPage = () => {
   return (
     <div>
-      <p style={{ color: '#fff' }}>This is a placeholder page</p>
+      <p style={{ color: '#fff' }}>This is a placeholder page!</p>
     </div>
   );
 };
