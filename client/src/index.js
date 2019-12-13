@@ -2,12 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { createStore, applyMiddleware } from 'redux';
+import logger from 'redux-logger';
 import reduxThunk from 'redux-thunk';
 import reducers from './reducers';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 
-const store = createStore(reducers, { auth: 'checkAuth' }, applyMiddleware(reduxThunk));
+const store = createStore(reducers, { auth: 'checkAuth' }, applyMiddleware(reduxThunk, logger));
 
 ReactDOM.render(
   <Provider store={store}>

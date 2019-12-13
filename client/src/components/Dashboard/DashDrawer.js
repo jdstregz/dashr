@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom';
 import { Cancel } from '@material-ui/icons';
 import useStyles from './styles/DashDrawer.styles';
 import routes from '../Routes/routes';
+import { useLocation } from 'react-router-dom';
 
 const routeArray = Object.values(routes());
 
@@ -25,6 +26,24 @@ const DashDrawer = props => {
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down('xs'));
   const classes = useStyles();
+  const location = useLocation();
+
+  React.useEffect(() => {
+    for (let i = 0; i < routeArray.length; i += 1) {
+      if (routeArray[i].link === location.pathname) {
+        setSelectedRouteIndex(i);
+      }
+      if (routeArray[i].subroutes != null) {
+        const subroutes = Object.values(routeArray[i].subroutes);
+        for (let j = 0; j < subroutes.length; j += 1) {
+          if (subroutes[j].link === location.pathname) {
+            setSelectedRouteIndex(i);
+            setSelectedSubrouteIndex(j);
+          }
+        }
+      }
+    }
+  }, [location.pathname]);
 
   const renderSublist = (route, parentMenuIndex) => {
     return (
